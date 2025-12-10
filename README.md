@@ -1,92 +1,143 @@
-# java_project
+# <a href="https://youtu.be/mLFPodZO8Iw" target="_blank"> OnlineBookStore </a> 
+- A Java Web Developement Project
+- **Youtube VIDEO** for step by step Local Setup Guide : https://youtu.be/mLFPodZO8Iw
+- **Youtube VIDEO** for local setup of tender management project: https://www.youtube.com/watch?v=7CE3aY4e644
+<!--Check out the Live website demo: [https://theonlinebookstore.herokuapp.com](https://theonlinebookstore.herokuapp.com)-->
+- User Login Credentials: (shashi/shashi)
+- Admin Login Credentials: (Admin/Admin)
+<hr>
 
+### About
 
+A user-friendly Online Bookstore project in which users can log in or register, view the available books, select books along with their quantity, and buy them. Users can also get payment receipts after successful payment. The project can also be used by the administrator, who can add new books, remove books, increase and decrease the quantity of books, change the price of the books as well as maintain the selling history of books.
 
-## Getting started
+![onlinebookstore](https://user-images.githubusercontent.com/34605595/137615096-8447d32d-bddc-4f13-a8ed-3c0f4dd5e04e.png)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+<span style="color:blue">**This Website is built for following purpose:-**</span>
+- For Selling books online.
+- Maintaining books selling history.
+- Adding and managing books.
+- User Friendly.
+- For Implementation of Http Servlets in Java.
+- This is a Mini-project developed using Java, Jdbc, And Servlets.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+<span style="color:blue">**Admin Have Following Access for this online store site:-**</span>
+- Add New Books.
+- View Books Available.
+- Remove Books.
+- Increase Books Amount.
 
-## Add your files
+<span style="color:blue">**Users Have Following Access for this online store site:-**</span>
+- Create New Account or Register.
+- Login.
+- View Available Books.
+- Select Books to Buy.
+- Select Books Quantity.
+- Buy Books.
+- Get Payment Receipt.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Technologies used:-
+1. Front-End Development:
+- HTML
+- CSS
+- Javascript
+- BootStrap
+
+2. Back-End Development:
+- Java [JDK 8+]
+- JDBC
+- Servlet
+
+3. Database:
+- MySql
+
+### ================ Software And Tools Required ================
+- : Git [https://www.youtube.com/watch?v=gv7VPQ4LZ7g]
+- : Java JDK 8+ [https://www.youtube.com/watch?v=O9PWH9SeTTE]
+- : Eclipse EE (Enterprise Edition) [https://www.youtube.com/watch?v=8aDsEV7txXE]
+- : Apache Maven [https://www.youtube.com/watch?v=jd2zx3dLjuw]
+- : Tomcat v8.0+ [https://youtu.be/mLFPodZO8Iw?t=903]
+- : MySQL Server [https://www.youtube.com/watch?v=Ydh5jYA6Frs]
+- : MySQL Workbench (optional) [https://www.youtube.com/watch?v=t79oCeTXHwg]
+
+### ================= Dummy Database Initialization =================
+
+STEP 1: Open MySQL Command Prompt or MySQL Workbench
+
+STEP 2: Login to the administrator user as : ```mysql -u <username> -p``` (Enter Password if asked)
+
+STEP 3: Copy paste the following MySql Commands-
+```MySQL
+create database if not exists onlinebookstore;
+
+use onlinebookstore;
+
+create table if not exists books(barcode varchar(100) primary key, name varchar(100), author varchar(100), price int, quantity int);
+
+create table if not exists users(username varchar(100) primary key,password varchar(100), firstname varchar(100),
+    lastname varchar(100),address text, phone varchar(100),mailid varchar(100),usertype int);
+
+insert into books values('9780134190563','The Go Programming Language','Alan A. A. Donovan and Brian W. Kernighan',400,8);
+insert into books values('9780133053036','C++ Primer','Stanley Lippman and Josée Lajoie and Barbara Moo',976,13);
+insert into books values('9781718500457','The Rust Programming Language','Steve Klabnik and Carol Nichols',560,12);
+insert into books values('9781491910740','Head First Java','Kathy Sierra and Bert Bates and Trisha Gee',754,23);
+insert into books values('9781492056300','Fluent Python','Luciano Ramalho',1014,5);
+insert into books values('9781720043997','The Road to Learn React','Robin Wieruch',239,18);
+insert into books values('9780132350884','Clean Code: A Handbook of Agile Software Craftsmanship','Robert C Martin',288,3);
+insert into books values('9780132181273','Domain-Driven Design','Eric Evans',560,28);
+insert into books values('9781951204006','A Programmers Guide to Computer Science','William Springer',188,4);
+insert into books values('9780316204552','The Soul of a New Machine','Tracy Kidder',293,30);
+insert into books values('9780132778046','Effective Java','Joshua Bloch',368,21);
+insert into books values('9781484255995','Practical Rust Projects','Shing Lyu',257,15);
+insert into users values('demo','demo','Demo','User','Demo Home','42502216225','demo@gmail.com',2);
+insert into users values('Admin','Admin','Mr.','Admin','Haldia WB','9584552224521','admin@gmail.com',1);
+insert into users values('shashi','shashi','Shashi','Raj','Bihar','1236547089','shashi@gmail.com',2);
+
+commit;
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.forsysinc.com/forsys_training/java_project.git
-git branch -M main
-git push -uf origin main
-```
 
-## Integrate with your tools
+### ========== Importing and Running The Project Through Eclipse EE ==========
 
-- [ ] [Set up project integrations](https://gitlab.forsysinc.com/forsys_training/java_project/-/settings/integrations)
+Step 0: Open Eclipse Enterprise Edition. [Install, if not already installed.]
 
-## Collaborate with your team
+Step 1: Click On File > Import > Git > Projects From Git > Clone Uri > Paste The Repository Url as: ```https://github.com/shashirajraja/onlinebookstore.git```> Select master Branch > Next > Next > Finish.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+Step 2. a: Go inside ```src/main/resources > application.properties``` and update the value of database details as per your usage, like db.driver, db.host, db.username and db.password according to your installed mysql/postgresql admin user credentials.
 
-## Test and Deploy
+Step 2.b: Right Click on Project > Run as > Maven Build > In the goals field enter "clean install" > apply > run
 
-Use the built-in continuous integration in GitLab.
+Step 2.c: Right Click On Project > Build Path > Configure Build Path > Libraries > Remove and Update Any Libraries if Red Mark Exists > Finish.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Step 3: [Only If Tomcat Server is not configured in Eclipse] : Right Click On Project > Run As > Run On Server > Select Tomcat V8.0 > (Select Tomcat V8.0 Installation Location If Asked) Next > Add onlinebookstore > Finish.
 
-***
+Step 4: In The Server Tab > Double Click On Tomcat Server > Ports > Change The Port Number For Http/1.1 To 8083 > Close And Save.
 
-# Editing this README
+Step 5: Right Click On Project > Run As > Run On Server > Select Tomcat v8.0 > Next > Add All> Done.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Step 6: Check Running The Site At  <a href="http://localhost:8083/onlinebookstore/">http://localhost:8083/onlinebookstore/</a>
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Step 7: Default Username And Password For Admin Is "Admin" And "Admin"
 
-## Name
-Choose a self-explaining name for your project.
+Step 8: The default Username And Password For User Is "shashi" And "shashi"
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## FAQ
+**Question:1** Unable to Connect to Database?
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+**Answer:** Please check you have installed the mysql correctly and have updated the correct db details in application.properties file. Also you can try doing maven clean install and force update the project and restart.
+<hr>
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Note:- Considering this as a Sample Project, we have not much considered of web security.
+#### Some Screenshots for the project:
+<img width="941" alt="image" src="https://user-images.githubusercontent.com/34605595/224769637-37c34d4b-26e7-4d49-b990-4c09b260ec31.png">
+<img width="954" alt="image" src="https://user-images.githubusercontent.com/34605595/224769990-f440f74d-41b2-4629-ba1c-a87267f225d9.png">
+<img width="930" alt="image" src="https://user-images.githubusercontent.com/34605595/224770145-5902054f-5943-44ac-b02f-92097c8a6972.png">
+<img width="934" alt="image" src="https://user-images.githubusercontent.com/34605595/224770257-e18a3810-0457-4b78-bf46-cf82746708ee.png">
+<img width="946" alt="image" src="https://user-images.githubusercontent.com/34605595/224770392-5a5478d2-98cc-44ee-8689-132b6b16af80.png">
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+#### "Suggestions and project improvement ideas are welcomed!"
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+<bold>Thanks a lot,</bold><br/>
+                                                                                                        Project Leader<br/>
+                                                                                                         <b>Shashi Raj</b>
