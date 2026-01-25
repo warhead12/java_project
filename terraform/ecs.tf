@@ -1,25 +1,34 @@
+############################
 # ECS CLUSTER
+############################
+
 resource "aws_ecs_cluster" "cluster" {
   name = "onlinebookstore-cluster"
 }
 
+############################
 # READ SECRET
+############################
+
 data "aws_secretsmanager_secret" "db" {
   name = "onlinebookstore/db"
 }
 
+############################
 # TASK DEFINITION
+############################
+
 resource "aws_ecs_task_definition" "task" {
-  family = "onlinebookstore-task"
-  network_mode = "awsvpc"
+  family                   = "onlinebookstore-task"
+  network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu = 512
-  memory = 1024
-  execution_role_arn = aws_iam_role.ecs_task_execution.arn
+  cpu                      = 512
+  memory                   = 1024
+  execution_role_arn       = aws_iam_role.ecs_task_execution.arn
 
   container_definitions = jsonencode([
     {
-      name = "app"
+      name  = "app"
       image = "${aws_ecr_repository.repo.repository_url}:latest"
 
       portMappings = [
@@ -28,12 +37,24 @@ resource "aws_ecs_task_definition" "task" {
         }
       ]
 
+      # ENABLE LOGS
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = "/ecs/onlinebookstore"
+          awslogs-region        = "us-east-1"
+          awslogs-stream-prefix = "app"
+        }
+      }
+
+      # NON-SECRET ENV VARS
       environment = [
         { name = "DB_HOST", value = aws_db_instance.mysql.address },
         { name = "DB_PORT", value = "3306" },
         { name = "DB_NAME", value = var.db_name }
       ]
 
+      # SECRETS
       secrets = [
         {
           name      = "DB_USER"
@@ -48,7 +69,10 @@ resource "aws_ecs_task_definition" "task" {
   ])
 }
 
+############################
 # ECS SERVICE
+############################
+
 resource "aws_ecs_service" "service" {
   name            = "onlinebookstore-service"
   cluster         = aws_ecs_cluster.cluster.id
@@ -57,8 +81,8 @@ resource "aws_ecs_service" "service" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets         = [aws_subnet.public.id]
-    security_groups = [aws_security_group.ecs_sg.id]
+    subnets          = [aws_subnet.public.id]
+    security_groups  = [aws_security_group.ecs_sg.id]
     assign_public_ip = true
   }
 }
