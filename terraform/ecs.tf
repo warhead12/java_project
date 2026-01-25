@@ -1,6 +1,7 @@
-resource "aws_ecs_cluster" "cluster" {
-  name = "onlinebookstore-cluster"
+data "aws_secretsmanager_secret" "db" {
+  name = "onlinebookstore/db"
 }
+
 
 resource "aws_ecs_task_definition" "task" {
   family = "onlinebookstore-task"
@@ -14,30 +15,31 @@ resource "aws_ecs_task_definition" "task" {
     {
       name = "app"
       image = "${aws_ecr_repository.repo.repository_url}:latest"
-      portMappings = [{
-        containerPort = 8080
-      }]
+
+      portMappings = [
+        {
+          containerPort = 8080
+        }
+      ]
+
+      # NON-SECRET VALUES
       environment = [
         { name = "DB_HOST", value = aws_db_instance.mysql.address },
         { name = "DB_PORT", value = "3306" },
-        { name = "DB_NAME", value = var.db_name },
-        { name = "DB_USER", value = var.db_user },
-        { name = "DB_PASS", value = var.db_password }
+        { name = "DB_NAME", value = var.db_name }
+      ]
+
+      # SECRETS FROM AWS SECRETS MANAGER
+      secrets = [
+        {
+          name      = "DB_USER"
+          valueFrom = "${data.aws_secretsmanager_secret.db.arn}:DB_USER::"
+        },
+        {
+          name      = "DB_PASS"
+          valueFrom = "${data.aws_secretsmanager_secret.db.arn}:DB_PASS::"
+        }
       ]
     }
   ])
-}
-
-resource "aws_ecs_service" "service" {
-  name = "onlinebookstore-service"
-  cluster = aws_ecs_cluster.cluster.id
-  task_definition = aws_ecs_task_definition.task.arn
-  desired_count = 1
-  launch_type = "FARGATE"
-
-  network_configuration {
-    subnets = [aws_subnet.public.id]
-    security_groups = [aws_security_group.ecs_sg.id]
-    assign_public_ip = true
-  }
 }
