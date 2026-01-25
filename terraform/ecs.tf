@@ -1,8 +1,14 @@
+# ECS CLUSTER
+resource "aws_ecs_cluster" "cluster" {
+  name = "onlinebookstore-cluster"
+}
+
+# READ SECRET
 data "aws_secretsmanager_secret" "db" {
   name = "onlinebookstore/db"
 }
 
-
+# TASK DEFINITION
 resource "aws_ecs_task_definition" "task" {
   family = "onlinebookstore-task"
   network_mode = "awsvpc"
@@ -22,14 +28,12 @@ resource "aws_ecs_task_definition" "task" {
         }
       ]
 
-      # NON-SECRET VALUES
       environment = [
         { name = "DB_HOST", value = aws_db_instance.mysql.address },
         { name = "DB_PORT", value = "3306" },
         { name = "DB_NAME", value = var.db_name }
       ]
 
-      # SECRETS FROM AWS SECRETS MANAGER
       secrets = [
         {
           name      = "DB_USER"
@@ -42,4 +46,19 @@ resource "aws_ecs_task_definition" "task" {
       ]
     }
   ])
+}
+
+# ECS SERVICE
+resource "aws_ecs_service" "service" {
+  name            = "onlinebookstore-service"
+  cluster         = aws_ecs_cluster.cluster.id
+  task_definition = aws_ecs_task_definition.task.arn
+  desired_count   = 1
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets         = [aws_subnet.public.id]
+    security_groups = [aws_security_group.ecs_sg.id]
+    assign_public_ip = true
+  }
 }
