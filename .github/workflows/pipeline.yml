@@ -34,7 +34,7 @@ jobs:
       run: |
         docker push ${{ secrets.ECR_URL }}:latest
 
-    - name: Force ECS Deploy
+    - name: Deploy to ECS
       run: |
         aws ecs update-service \
           --cluster onlinebookstore-cluster \
