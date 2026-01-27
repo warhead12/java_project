@@ -38,11 +38,13 @@ resource "aws_ecs_task_definition" "task" {
         }
       ]
 
+      ####################
       # LOGGING
+      ####################
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = "/ecs/onlinebookstore"
+          awslogs-group         = aws_cloudwatch_log_group.ecs_logs.name
           awslogs-region        = "us-east-1"
           awslogs-stream-prefix = "app"
         }
