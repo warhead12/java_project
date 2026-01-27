@@ -15,17 +15,30 @@ public class DBUtil {
 
         try {
 
-            Class.forName(DatabaseConfig.DRIVER_NAME);
-            
-            connection = DriverManager.getConnection(DatabaseConfig.CONNECTION_STRING, DatabaseConfig.DB_USER_NAME,
-                    DatabaseConfig.DB_PASSWORD);
+            // Load MySQL Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Read environment variables
+            String host = System.getenv("DB_HOST");
+            String port = System.getenv("DB_PORT");
+            String dbName = System.getenv("DB_NAME");
+            String username = System.getenv("DB_USER");
+            String password = System.getenv("DB_PASS");
+
+            // Build JDBC URL
+            String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
+
+            // Create connection
+            connection = DriverManager.getConnection(url, username, password);
+
+            System.out.println("Connected to database successfully");
+
         } catch (SQLException | ClassNotFoundException e) {
 
             e.printStackTrace();
-
         }
 
-    }// End of static block
+    }
 
     public static Connection getConnection() throws StoreException {
 
@@ -35,5 +48,4 @@ public class DBUtil {
 
         return connection;
     }
-
 }
