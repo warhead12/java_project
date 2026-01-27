@@ -34,10 +34,11 @@ resource "aws_ecs_task_definition" "task" {
       portMappings = [
         {
           containerPort = 8080
+          hostPort      = 8080
         }
       ]
 
-      # ENABLE LOGS
+      # LOGGING
       logConfiguration = {
         logDriver = "awslogs"
         options = {
@@ -47,14 +48,23 @@ resource "aws_ecs_task_definition" "task" {
         }
       }
 
-      # NON-SECRET ENV VARS
+      ####################
+      # NON-SECRET VARS
+      ####################
       environment = [
-        { name = "DB_HOST", value = aws_db_instance.mysql.address },
-        { name = "DB_PORT", value = "3306" },
-        { name = "DB_NAME", value = var.db_name }
+        {
+          name  = "DB_HOST"
+          value = aws_db_instance.mysql.address
+        },
+        {
+          name  = "DB_PORT"
+          value = "3306"
+        }
       ]
 
+      ####################
       # SECRETS
+      ####################
       secrets = [
         {
           name      = "DB_USER"
@@ -63,6 +73,10 @@ resource "aws_ecs_task_definition" "task" {
         {
           name      = "DB_PASS"
           valueFrom = "${data.aws_secretsmanager_secret.db.arn}:DB_PASS::"
+        },
+        {
+          name      = "DB_NAME"
+          valueFrom = "${data.aws_secretsmanager_secret.db.arn}:DB_NAME::"
         }
       ]
     }

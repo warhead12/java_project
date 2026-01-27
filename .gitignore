@@ -1,5 +1,37 @@
+##################################
 # Terraform
-terraform/.terraform/
-terraform/*.tfstate
-terraform/*.tfstate.backup
-terraform/.terraform.lock.hcl
+##################################
+.terraform/
+*.tfstate
+*.tfstate.*
+*.lock.hcl
+
+##################################
+# Terraform variable files
+##################################
+*.tfvars
+*.tfvars.json
+
+##################################
+# Crash logs
+##################################
+crash.log
+crash.*.log
+
+##################################
+# OS / Editor files
+##################################
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+##################################
+# Node / Java build (if present)
+##################################
+node_modules/
+target/
+build/
+dist/

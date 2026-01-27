@@ -22,8 +22,8 @@ resource "aws_iam_policy" "secrets_policy" {
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Effect = "Allow",
-      Action = ["secretsmanager:GetSecretValue"],
+      Effect   = "Allow",
+      Action   = ["secretsmanager:GetSecretValue"],
       Resource = "*"
     }]
   })

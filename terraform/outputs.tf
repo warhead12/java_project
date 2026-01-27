@@ -3,5 +3,6 @@ output "ecr_url" {
 }
 
 output "rds_endpoint" {
-  value = aws_db_instance.mysql.address
+  value = aws_db_instance.mysql.endpoint
 }
+
